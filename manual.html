@@ -1,0 +1,419 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>SitePlanner 3D — User Manual</title>
+<style>
+  body { margin: 0; padding: 0; font-family: Georgia, 'Times New Roman', serif; color: #333; font-size: 11pt; line-height: 1.55; text-align: justify; text-align-last: left; string-set: doctitle ""; }
+  @page { size: A4; margin: 2.3cm 2cm; @top-center { content: string(doctitle); font-size: 9pt; color: #777; } @bottom-center { content: counter(page); font-size: 9pt; color: #777; } }
+  @page :first { margin: 0; @top-center { content: none; } @bottom-center { content: none; } }
+  @page toc { @top-center { content: none; } }
+  .cover { width: 210mm; height: 297mm; margin: 0; position: relative; overflow: hidden; page-break-after: always; background: #fafbfc; }
+  .cover .grid-bg { position: absolute; inset: 0; background-image: linear-gradient(#e3e9ee 1px, transparent 1px), linear-gradient(90deg, #e3e9ee 1px, transparent 1px); background-size: 12mm 12mm; }
+  .cover .bar-top { position: absolute; top: 0; left: 0; right: 0; height: 14mm; background: #12365c; }
+  .cover .bar-accent { position: absolute; top: 14mm; left: 0; right: 0; height: 2.5mm; background: #4f9cf0; }
+  .cover .corner-block { position: absolute; bottom: 0; right: 0; width: 52mm; height: 52mm; background: #12365c; }
+  .cover .corner-block2 { position: absolute; bottom: 0; right: 52mm; width: 12mm; height: 12mm; background: #4f9cf0; }
+  .cover-content { position: absolute; top: 42%; left: 50%; transform: translate(-50%, -50%); text-align: center; width: 78%; }
+  .cover-brand { font-size: 13pt; letter-spacing: 4px; color: #12365c; font-weight: 700; margin-bottom: 1cm; font-family: 'Segoe UI', Arial, sans-serif; }
+  .cover-title { font-size: 30pt; font-weight: 700; color: #12365c; margin: 0 0 0.4cm 0; font-family: 'Segoe UI', Arial, sans-serif; }
+  .cover-subtitle { font-size: 15pt; color: #4f9cf0; margin-bottom: 1.6cm; font-family: 'Segoe UI', Arial, sans-serif; }
+  .cover-meta { font-size: 11pt; color: #555; line-height: 1.9; }
+  .toc-page { page: toc; page-break-after: always; }
+  .toc-page h2 { font-family: 'Segoe UI', Arial, sans-serif; color: #12365c; border-bottom: 2px solid #12365c; padding-bottom: 4px; }
+  ul.toc { list-style: none; padding: 0; }
+  ul.toc li { margin: 7px 0; font-size: 11.5pt; display: flex; align-items: baseline; }
+  ul.toc a { color: #333; text-decoration: none; }
+  ul.toc li .dots { flex: 1; border-bottom: 1px dotted #999; margin: 0 6px; }
+  ul.toc li .pg { color: #777; }
+  h1 { string-set: doctitle content(); font-family: 'Segoe UI', Arial, sans-serif; font-size: 17pt; color: #12365c; border-bottom: 2px solid #12365c; padding-bottom: 4px; page-break-after: avoid; margin-top: 1.4em; }
+  h2 { font-family: 'Segoe UI', Arial, sans-serif; font-size: 13pt; color: #1d4e7e; page-break-after: avoid; margin-top: 1.2em; }
+  figure { page-break-inside: avoid; text-align: center; margin: 14px 0; }
+  figure img { max-width: 96%; max-height: 38vh; border: 1px solid #c9d2d8; }
+  figcaption { font-size: 9.5pt; color: #555; margin-top: 5px; font-style: italic; }
+  figcaption::before { content: attr(data-label) " — "; font-weight: bold; font-style: normal; }
+  table { width: 100%; border-collapse: collapse; margin: 10px 0; font-size: 10pt; max-width: 100%; }
+  th { border-top: 1.5px solid #333; border-bottom: 1px solid #333; text-align: left; padding: 5px 8px; font-family: 'Segoe UI', Arial, sans-serif; }
+  td { padding: 5px 8px; border-bottom: 0.5px solid #ccc; vertical-align: top; }
+  tbody tr:last-child td { border-bottom: 1.5px solid #333; }
+  tr { page-break-inside: avoid; }
+  caption { font-size: 9.5pt; color: #555; margin-bottom: 4px; text-align: left; }
+  caption::before { content: attr(data-label) " — "; font-weight: bold; }
+  .tip { border-left: 3px solid #12365c; padding: 4px 12px; margin: 10px 0; background: #f5f7f9; }
+  .tip .tip-title { font-weight: bold; font-family: 'Segoe UI', Arial, sans-serif; }
+  kbd { background: #f0f2f4; border: 1px solid #c9d2d8; border-bottom-width: 2px; border-radius: 3px; padding: 0 5px; font-family: 'Segoe UI', Arial, sans-serif; font-size: 9.5pt; }
+  .key-col { white-space: nowrap; font-family: 'Segoe UI', Arial, sans-serif; }
+  pre, table, figure, img, blockquote { max-width: 100%; box-sizing: border-box; }
+</style>
+</head>
+<body>
+
+<div class="cover">
+  <div class="grid-bg"></div>
+  <div class="bar-top"></div>
+  <div class="bar-accent"></div>
+  <div class="corner-block"></div>
+  <div class="corner-block2"></div>
+  <div class="cover-content">
+    <div class="cover-brand">MEGAVERKS TECHNOLOGIES</div>
+    <h1 class="cover-title">SitePlanner 3D</h1>
+    <p class="cover-subtitle">User Manual &amp; Operating Guide — Software Version <b>V47</b></p>
+    <div class="cover-meta">
+      <p>2D Sketch → Realtime 3D BIM Site Planning — Kitchen &amp; MEP, HVAC, Dimensioning, IFC and CAD Export</p>
+      <p>Document version V47.0 &nbsp;·&nbsp; August 2026</p>
+    </div>
+  </div>
+</div>
+
+<div class="toc-page">
+  <h2>Contents</h2>
+  <ul class="toc">
+    <li><a href="#sec1">1. Getting Started</a><span class="dots"></span><span class="pg">3</span></li>
+    <li><a href="#sec2">2. The Interface at a Glance</a><span class="dots"></span><span class="pg">3</span></li>
+    <li><a href="#sec3">3. Drawing Walls — AutoCAD Style</a><span class="dots"></span><span class="pg">4</span></li>
+    <li><a href="#sec4">4. Doors, Windows, Beams and Pillars</a><span class="dots"></span><span class="pg">5</span></li>
+    <li><a href="#sec5">5. Floors and Slabs</a><span class="dots"></span><span class="pg">6</span></li>
+    <li><a href="#sec6">6. The Items Library</a><span class="dots"></span><span class="pg">6</span></li>
+    <li><a href="#sec7">7. HVAC Ducting</a><span class="dots"></span><span class="pg">7</span></li>
+    <li><a href="#sec8">8. Services — Drains and Electrical</a><span class="dots"></span><span class="pg">8</span></li>
+    <li><a href="#sec9">9. Measuring and Dimensioning</a><span class="dots"></span><span class="pg">9</span></li>
+    <li><a href="#sec10">10. Heights and the 3D Dims Layer</a><span class="dots"></span><span class="pg">10</span></li>
+    <li><a href="#sec11">11. Face Painting and Clash Detection</a><span class="dots"></span><span class="pg">10</span></li>
+    <li><a href="#sec12">12. Saving and Exporting (.STEP / .IGS / .OBJ)</a><span class="dots"></span><span class="pg">11</span></li>
+    <li><a href="#sec13">13. Keyboard Shortcuts and Tips</a><span class="dots"></span><span class="pg">12</span></li>
+    <li><a href="#sec14">14. BIM and MEP Planning — Inspector, IFC Export, BOQ</a><span class="dots"></span><span class="pg">13</span></li>
+    <li><a href="#sec15">15. Kitchen Layout Templates</a><span class="dots"></span><span class="pg">14</span></li>
+    <li><a href="#sec16">16. BIM Data Points — One-Click Engineering Report</a><span class="dots"></span><span class="pg">15</span></li>
+    <li><a href="#sec17">17. 3D Model Editing — SolidWorks-Style Direct Edit &amp; V.Duct in 3D</a><span class="dots"></span><span class="pg">16</span></li>
+    <li><a href="#sec18">18. SolidWorks CommandManager — Features, Evaluate &amp; View</a><span class="dots"></span><span class="pg">18</span></li>
+  </ul>
+</div>
+
+<h1 id="sec1">1. Getting Started</h1>
+<p>SitePlanner 3D is a single-page planning tool: you sketch a floor plan in 2D on the left, and the building grows in realtime 3D on the right. Everything runs in the browser — walls, doors, HVAC ducts, exhaust hoods, drains, electrical points, dimensions and clash checks — and the finished model exports to standard CAD formats (.STEP, .IGS, .OBJ) with one click.</p>
+<p>No installation is needed. Open the tool, and you are greeted by the split screen shown in <a href="#fig-1">Figure 1</a>. A good first exercise is:</p>
+<p>1. Click <b>Draw Walls</b> and click four corners of a room in the floor plan.<br>
+2. Press <kbd>Esc</kbd> (or double-click) to finish.<br>
+3. Orbit the 3D view with the middle mouse button (SolidWorks style — see the 3D VIEW row below) or the left mouse button.<br>
+4. Add a door, a window and a pillar — each appears instantly in 3D.</p>
+<figure id="fig-1">
+  <img src="manual_img/overview.png" alt="Overview">
+  <figcaption data-label="Figure 1">The split workspace — 2D floor plan on the left, live 3D model on the right, with a window, door and pillar placed.</figcaption>
+</figure>
+
+<h1 id="sec2">2. The Interface at a Glance</h1>
+<table>
+  <caption data-label="Table 1">Main areas and controls</caption>
+  <thead><tr><th>Area / Control</th><th>What it does</th></tr></thead>
+  <tbody>
+    <tr><td class="key-col">FLOOR PLAN (left)</td><td>Drawing canvas. Wheel = zoom, middle-drag (scroll-wheel press) or right-drag = pan. All 2D tools draw here.</td></tr>
+    <tr><td class="key-col">3D VIEW (right)</td><td>Live model. Middle-drag = rotate, Ctrl+middle-drag = pan, Shift+middle-drag = zoom, double-middle-click = zoom to fit, Alt+middle-drag = roll, middle-click a face = orbit centre (SolidWorks style). Left-drag = orbit, wheel = zoom, or use the on-screen navigation pad.</td></tr>
+    <tr><td class="key-col">Split / 2D / 3D</td><td>View toggle (top right) — work split-screen or give one view the full window.</td></tr>
+    <tr><td class="key-col">Toolbar</td><td>All drawing and editing tools. The active tool stays highlighted blue.</td></tr>
+    <tr><td class="key-col">Hint bar</td><td>The strip below the toolbar always explains how the <i>current</i> tool works — read it once per tool and you know the whole program.</td></tr>
+    <tr><td class="key-col">Floor selector + ＋ Floor</td><td>Add storeys and switch between them. Each floor keeps its own walls, ducts and items.</td></tr>
+    <tr><td class="key-col">Wall H / Thk</td><td>Default wall height (m) and thickness (m) for the active floor.</td></tr>
+    <tr><td class="key-col">Undo / Redo</td><td>Full history of every action — safe to experiment.</td></tr>
+  </tbody>
+</table>
+
+<h1 id="sec3">3. Drawing Walls — AutoCAD Style</h1>
+<p>Select <b>Draw Walls</b> (or <b>L.Wall</b> for low walls such as kitchen counters and parapets), then work exactly like the AutoCAD LINE command:</p>
+<p>1. <b>Click the start point</b> once. Do not hold the button.<br>
+2. <b>Move the mouse</b> — a rubber-band line follows the cursor showing the live <b>length</b> and <b>angle in degrees</b>, with an angle arc at the start point (<a href="#fig-2">Figure 2</a>).<br>
+3. <b>Click</b> to place the point. Drawing chains — the next segment starts from the last point.<br>
+4. <b>Double-click</b> or press <kbd>Esc</kbd> to stop.</p>
+<figure id="fig-2">
+  <img src="manual_img/walldraw.png" alt="Wall drawing with dynamic input">
+  <figcaption data-label="Figure 2">Drawing a wall at an angle — live length + angle readout and the dynamic length / angle input boxes next to the cursor.</figcaption>
+</figure>
+<h2>3.1 Dynamic input (type exact values)</h2>
+<p>While drawing, two small input boxes float next to the cursor — <b>length (m)</b> and <b>angle (°)</b>. Type an exact value in either box, press <kbd>Tab</kbd> to jump between them, and press <kbd>Enter</kbd> to place the point precisely (e.g. length <i>2.5</i>, angle <i>90</i> draws a 2.5 m wall straight up). A typed angle always wins over snapping.</p>
+<h2>3.2 Ortho snap — on/off (<kbd>F8</kbd>)</h2>
+<p>The <b>⊞ Ortho</b> button (highlighted when ON) works like AutoCAD's ORTHO mode:</p>
+<table>
+  <caption data-label="Table 2">Ortho modes</caption>
+  <thead><tr><th>Ortho ON (default)</th><th>Ortho OFF</th></tr></thead>
+  <tbody><tr>
+    <td>Walls lock strictly horizontal / vertical — perfect for clean rectangular plans. Even a diagonal drag produces a straight axis wall with the full drag length (<a href="#fig-3">Figure 3</a>).</td>
+    <td>Walls draw at any angle. Directions close to a 15° step (0°, 15°, 30°, 45°…) snap politely, so angled rooms are still easy to keep tidy.</td>
+  </tr></tbody>
+</table>
+<p>Press <kbd>F8</kbd> or click the button to flip modes at any time, even mid-wall.</p>
+<figure id="fig-3">
+  <img src="manual_img/ortho.png" alt="Ortho mode">
+  <figcaption data-label="Figure 3">Ortho ON — the cursor is pulled diagonally, yet the wall locks to horizontal: 5.00 m ∠0.0°.</figcaption>
+</figure>
+<h2>3.3 Wall height — per wall</h2>
+<p><b>Wall H</b> in the toolbar sets the floor's full wall height. A wall drawn with the <b>L.Wall</b> tool uses its own height (default 1.2 m). To give <b>each wall its own height</b> — for example one at 1.5 m, the next at 2.0 m, another at 1.8 m — <b>double-click the wall</b> (in Select or Move mode) and type the height; the 3D model updates immediately, and walls whose height differs from the floor height carry a small teal <b>H</b> badge in the plan (e.g. <i>H1.5</i>). The wall editor also sets thickness, or deletes the wall.</p>
+<h2>3.4 Snaps and grips (AutoCAD style)</h2>
+<p>While drawing, the cursor snaps to wall <b>endpoints</b> (green square marker) and <b>midpoints</b> (green triangle marker) — like AutoCAD's OSNAP. After drawing, select a single wall with the Select tool: blue <b>grip squares</b> appear at its ends and middle. Drag an end grip to <b>stretch</b> the wall (with snapping), or the middle grip to <b>move</b> it — exactly like AutoCAD grip editing.</p>
+
+<h1 id="sec4">4. Doors, Windows, Beams and Pillars</h1>
+<p>Set the size in the hint bar, then <b>click a wall</b> to insert:</p>
+<table>
+  <caption data-label="Table 3">Openings and structure</caption>
+  <thead><tr><th>Tool</th><th>Options in the hint bar</th><th>Placement</th></tr></thead>
+  <tbody>
+    <tr><td class="key-col">Window</td><td>Width, height, sill height</td><td>Click a wall — the nearest point on it is used.</td></tr>
+    <tr><td class="key-col">Door</td><td>Width, height, single/double leaf, hinge side, <b>Opens Outside (default) / Inside</b></td><td>Click a wall. The swing arc shows the opening direction.</td></tr>
+    <tr><td class="key-col">Beam</td><td>Width, depth, height from floor</td><td>Click two points, like a wall.</td></tr>
+    <tr><td class="key-col">Pillar</td><td>Size, height</td><td>Single click to place.</td></tr>
+  </tbody>
+</table>
+<p>To move any of them, use <b>✥ Move</b> and drag. To resize a beam or pillar, click it in Move mode — a small editor opens, including its <b>height from floor</b>.</p>
+
+<h1 id="sec5">5. Floors and Slabs</h1>
+<p>Click <b>＋ Floor</b> to add a storey. The floor selector jumps between floors; everything you draw belongs to the active floor, and floor heights stack automatically. Use the <b>▭ Slab</b> tool and click two opposite corners to pour a concrete slab/terrace on top of the active floor.</p>
+
+<h1 id="sec6">6. The Items Library</h1>
+<p><b>＋ Add Items</b> opens the equipment drawer (<a href="#fig-4">Figure 4</a>) with categories for <b>Hoods, Ducting, HVAC, Services, Blowers, Structures</b> and <b>Kitchen Equipment</b> — exhaust hoods, fresh-air grilles in the three standard sizes, diffusers, AHUs, FCUs, drain points, switches and more.</p>
+<figure id="fig-4">
+  <img src="manual_img/library.png" alt="Items library">
+  <figcaption data-label="Figure 4">The Add Items library drawer — pick a category, set the size, and click in the plan (or on a wall) to place.</figcaption>
+</figure>
+<p>Pick an item, adjust its dimensions in the dialog, then place it. Wall-mounted items (hoods, switches) ask you to click a wall — the side you click is the side they mount on. Floor items stamp with each click; press <kbd>R</kbd> to rotate, <kbd>Esc</kbd> to finish.</p>
+
+<h1 id="sec7">7. HVAC Ducting</h1>
+<p>The <b>Duct</b> tool draws duct runs with automatic fittings (<a href="#fig-5">Figure 5</a>):</p>
+<p>1. Choose the system in the hint bar — <b style="color:#2e7d32">green = Fresh Air</b>, <b style="color:#e65100">orange = Exhaust</b>.<br>
+2. Set width, height and the bottom elevation from the floor.<br>
+3. Click points along the run. Corners get <b>mitered elbows</b> automatically.<br>
+4. Double-click or <kbd>Esc</kbd> ends the run.</p>
+<p>Change a segment's size later (Move mode → click the duct) and <b>reducers</b> are inserted automatically where sizes change.</p>
+<figure id="fig-5">
+  <img src="manual_img/hvac.png" alt="HVAC ducts">
+  <figcaption data-label="Figure 5">A fresh-air run (green) and an exhaust run (orange) at 2.6 m elevation, shown in both plan and 3D.</figcaption>
+</figure>
+<h2>7.1 Rises and vertical ducts</h2>
+<p>Use <b>⇧ Rise</b> to take a duct up to the next floor with a top offset — the run continues from the offset point. Use <b>⬍ V.Duct</b> to drop a vertical duct (e.g. from a terrace AHU down the facade) at any clicked point, inside or outside the building; it wears a weather cap on top.</p>
+<h2>7.2 Exhaust hoods</h2>
+<p>The library's wall-type hoods (trapezoid cross-section, grease filter at 45°, definable length and mounting height) mount exactly like doors — click a wall. Flip the side with the editor's <b>⇄</b> button.</p>
+
+<h1 id="sec8">8. Services — Drains and Electrical</h1>
+<p>In the library's <b>Services</b> category you will find gutter/floor-drain points (placed on the slab of the active floor) and wall-mounted electrical points — <b>16 A and 6 A switches, MCB boxes and motor starters</b> — whose mounting height from the floor is editable (Move mode → click the item).</p>
+
+<h1 id="sec9">9. Measuring and Dimensioning</h1>
+<p>Three dedicated tools cover every measurement need:</p>
+<h2>9.1 2D Measure (floor plan only)</h2>
+<p>Click a first point, move (live length and angle), click the second point — the dimension stays on the plan (<a href="#fig-6">Figure 6</a>). Clicks snap to wall ends and corners, and further clicks chain measurements. <kbd>Esc</kbd>/<kbd>Del</kbd> clears them all.</p>
+<figure id="fig-6">
+  <img src="manual_img/measure2d.png" alt="2D Measure">
+  <figcaption data-label="Figure 6">2D Measure — a placed measurement with the next one rubber-banding from its endpoint.</figcaption>
+</figure>
+<h2>9.2 3D Measure (3D view only)</h2>
+<p>SolidWorks-style entity measuring: click a <b>face, edge or point</b> (it highlights orange), then click or <kbd>Ctrl</kbd>+click a second one. The <b>3DMeasure panel</b> opens right inside the 3D view showing <b>Distance, ΔX, ΔY and ΔZ</b> in millimetres (<a href="#fig-7">Figure 7</a>), with an in-model dimension line. Works for every combination — point↔point, point↔edge, edge↔edge, point↔face, edge↔face and face↔face (angle shown when faces are not parallel). <kbd>Esc</kbd> clears instantly.</p>
+<figure id="fig-7">
+  <img src="manual_img/measure3d.png" alt="3D Measure">
+  <figcaption data-label="Figure 7">3D Measure — the 3DMeasure panel with distance and ΔX / ΔY / ΔZ after picking a face and an edge.</figcaption>
+</figure>
+<h2>9.3 Dim — AutoCAD-style annotation dimensions</h2>
+<p>The <b>📐 Dim</b> tool places permanent drafting dimensions on the plan. Pick a <b>mode</b> in the hint bar:</p>
+<table>
+  <caption data-label="Table 4">Dim modes</caption>
+  <thead><tr><th>Mode</th><th>How to use</th></tr></thead>
+  <tbody>
+    <tr><td class="key-col">Linear</td><td>Click point 1 → point 2 → pull out and click to position. Pull up/down for a horizontal dim, sideways for vertical.</td></tr>
+    <tr><td class="key-col">Aligned</td><td>Same flow for inclined walls — the dimension line runs parallel to the points with the true inclined length.</td></tr>
+    <tr><td class="key-col">Continue</td><td>Each click extends a string of aligned dims from the previous one.</td></tr>
+    <tr><td class="key-col">Baseline</td><td>Each click measures from the first origin of the last dim, stacked outward.</td></tr>
+    <tr><td class="key-col">Angular</td><td>Click two walls, then position the arc — the true angle appears in degrees.</td></tr>
+  </tbody>
+</table>
+<figure id="fig-8">
+  <img src="manual_img/dims.png" alt="Dimensions">
+  <figcaption data-label="Figure 8">Dim tool output — linear, vertical and aligned dimensions with extension lines, arrowheads and millimetre text.</figcaption>
+</figure>
+<p>Dimensions are permanent objects: they are saved with the project, undoable, and erasable one-by-one with the <b>✕ Delete</b> tool.</p>
+
+<h1 id="sec10">10. Heights and the 3D Dims Layer</h1>
+<p>Every object can be moved vertically, not just in plan: ducts have an elevation, hoods and switches a mounting height, beams and pillars a height from floor — all editable from their Move-mode editors or the ↕ field in the selection bar. Press <b>📐 3D Dims</b> to toggle a dimension layer in the 3D view itself (wall lengths, duct sizes, hood elevations), so heights and sizes can be read off the model directly.</p>
+
+<h1 id="sec11">11. Face Painting and Clash Detection</h1>
+<p><b>🎨 Paint</b>: click any face in the 3D view and choose a colour from the palette — ideal for marking zones or equipment. Colours persist with the project; Clear restores the original.</p>
+<figure id="fig-9">
+  <img src="manual_img/paint.png" alt="Face paint">
+  <figcaption data-label="Figure 9">Painting a face — click a face in 3D and pick a colour from the palette.</figcaption>
+</figure>
+<p><b>⚠ Clash</b>: runs a clash analysis of the ductwork against pillars, columns, beams, rises and other ducts, and warns when fresh-air intakes sit too close to exhaust zones. Hits are marked red (hard clash) or yellow (advisory) in both 2D and 3D, with a written report.</p>
+
+<h1 id="sec12">12. Saving and Exporting (.STEP / .IGS / .OBJ)</h1>
+<p>Click <b>💾 Save</b>. Two things happen at once (<a href="#fig-10">Figure 10</a>):</p>
+<p>1. <b>The project is saved in the browser</b> — the <b>📂 Load</b> button restores it next time, including all floors, ducts, dimensions and paint.<br>
+2. <b>A download dialog opens</b> offering the 3D model in three standard formats.</p>
+<figure id="fig-10">
+  <img src="manual_img/savedlg.png" alt="Save dialog">
+  <figcaption data-label="Figure 10">The Save dialog — project stored in the browser, plus one-click 3D downloads.</figcaption>
+</figure>
+<table>
+  <caption data-label="Table 5">Export formats</caption>
+  <thead><tr><th>Format</th><th>Contents</th><th>Best for</th></tr></thead>
+  <tbody>
+    <tr><td class="key-col">.STEP (.stp)</td><td>Solid B-rep geometry (AP203)</td><td>SolidWorks, AutoCAD, Inventor, Revit — exact solid model</td></tr>
+    <tr><td class="key-col">.IGS (.iges)</td><td>Surface B-rep geometry</td><td>Older CAD systems and CAM pipelines</td></tr>
+    <tr><td class="key-col">.OBJ</td><td>Display mesh (triangles)</td><td>Blender, 3ds Max, rendering and visualisation tools</td></tr>
+  </tbody>
+</table>
+<p>The toolbar's <b>⬇ .STEP</b> and <b>⬇ .IGS</b> buttons export the same files directly without opening the dialog. <b>⬆ Import</b> reads DXF layouts and IGES/STEP/OBJ library models, and <b>🗑 New</b> starts a fresh plan.</p>
+
+<h1 id="sec13">13. Keyboard Shortcuts and Tips</h1>
+<table>
+  <caption data-label="Table 6">Shortcuts</caption>
+  <thead><tr><th>Key</th><th>Action</th></tr></thead>
+  <tbody>
+    <tr><td class="key-col"><kbd>F8</kbd></td><td>Toggle Ortho snap on/off</td></tr>
+    <tr><td class="key-col"><kbd>Esc</kbd></td><td>Stop drawing / clear measurements and selections / close dialogs</td></tr>
+    <tr><td class="key-col"><kbd>Del</kbd> / <kbd>Backspace</kbd></td><td>Clear all measurements (in measure tools) / delete selection</td></tr>
+    <tr><td class="key-col"><kbd>Tab</kbd></td><td>Jump between the length and angle boxes while drawing walls</td></tr>
+    <tr><td class="key-col"><kbd>Enter</kbd></td><td>Place a wall point from the typed length / angle</td></tr>
+    <tr><td class="key-col"><kbd>Ctrl</kbd> + click</td><td>Pick the second entity in 3D Measure</td></tr>
+    <tr><td class="key-col"><kbd>R</kbd></td><td>Rotate the item being placed</td></tr>
+    <tr><td class="key-col">Double-click</td><td>Finish a wall chain or duct run — on a wall (Select/Move mode): edit its height</td></tr>
+    <tr><td class="key-col">Middle mouse (scroll-wheel press) + drag</td><td>In 2D: pan. In 3D (SolidWorks style): middle-drag = rotate · <kbd>Ctrl</kbd>+middle-drag = pan · <kbd>Shift</kbd>+middle-drag = zoom · <kbd>Alt</kbd>+middle-drag = roll · double-middle-click = zoom to fit · middle-click a face = set orbit centre</td></tr>
+  </tbody>
+</table>
+<div class="tip">
+  <span class="tip-title">Tips for good drawings</span>
+  <p>· Keep <b>Ortho ON</b> for rectangular buildings; tap <kbd>F8</kbd> only for angled walls.<br>
+  · Read the <b>hint bar</b> — it always documents the active tool.<br>
+  · Dimension with the <b>Dim</b> tool (permanent annotations) and verify with <b>2D/3D Measure</b> (quick checks).<br>
+  · Run <b>⚠ Clash</b> after routing ducts, before exporting.<br>
+  · Export <b>.STEP</b> for CAD work, <b>.OBJ</b> for rendering.</p>
+</div>
+
+<h1 id="sec14">14. BIM and MEP Planning — Inspector, IFC Export, BOQ</h1>
+<p>SitePlanner 3D carries real BIM data behind the drawing, inspired by open-source BIM tools such as Bonsai BIM (IfcOpenShell): every object has an IFC class, a material and — for MEP work — a system and connection points. Three features work together:</p>
+
+<h2>14.1 BIM Inspector (🏷 BIM button)</h2>
+<p>Click <b>🏷 BIM</b> in the toolbar, then click any object in the floor plan — a wall, door, window, beam, column, duct, hood, or any kitchen equipment. The inspector shows:</p>
+<ul>
+  <li><b>Live quantities</b> — wall length / net area / volume (openings deducted), equipment sizes, duct lengths, mount heights.</li>
+  <li><b>IFC class</b> — e.g. IfcWallStandardCase, IfcSanitaryTerminal for sinks, IfcFan for blowers, IfcElectricDistributionBoard for MCB panels.</li>
+  <li><b>Material</b> — free text such as "AAC block 200mm" or "SS 304".</li>
+  <li><b>MEP system</b> — Cold Water, Hot Water, Drainage, Gas, Electrical, Exhaust Air, Fresh Air.</li>
+  <li><b>Fire rating</b> — on walls and doors.</li>
+</ul>
+<p>Everything you enter is saved with the project and flows into the IFC export and the BOQ.</p>
+
+<figure id="fig-bim">
+  <img src="manual_img/bim.png" alt="BIM inspector on a sink showing MEP connections">
+  <figcaption data-label="Figure 11">The BIM inspector on a Single Sink Unit — size, MEP connections, IFC class, material and system</figcaption>
+</figure>
+
+<h2>14.2 MEP connection points</h2>
+<p>Library items that need services carry <b>connection points</b>, drawn as coloured dots on the item in the plan and listed in the inspector and the equipment schedule:</p>
+<table>
+  <caption data-label="Table 7">MEP connection colour code</caption>
+  <thead><tr><th>Dot</th><th>Service</th><th>Typical items</th></tr></thead>
+  <tbody>
+    <tr><td style="color:#2196f3">●</td><td>Cold Water</td><td>sinks, bain marie, FCU</td></tr>
+    <tr><td style="color:#e53935">●</td><td>Hot Water</td><td>sinks</td></tr>
+    <tr><td style="color:#795548">●</td><td>Drainage</td><td>sinks, floor drains, bain marie, AHU / FCU</td></tr>
+    <tr><td style="color:#fbc02d">●</td><td>Electrical</td><td>griddles, hoods, blowers, switches, MCB panels, starters</td></tr>
+    <tr><td style="color:#fb8c00">●</td><td>Exhaust Air</td><td>hoods, exhaust ducts and grilles, blowers</td></tr>
+    <tr><td style="color:#43a047">●</td><td>Fresh Air</td><td>fresh-air ducts, supply grilles, diffusers, AHU</td></tr>
+  </tbody>
+</table>
+
+<h2>14.3 IFC export (⬇ .IFC)</h2>
+<p>The <b>⬇ .IFC</b> button (also in the Save dialog) downloads <b>SitePlanner3D.ifc</b> — an IFC2X3 BIM model with the full Project → Site → Building → Storey structure. Walls, slabs, doors, windows, beams, columns, kitchen equipment, ducts and services become native IFC elements with swept-solid geometry, and the materials you set in the inspector are attached to them. Open it in <b>Bonsai BIM (Blender)</b>, Revit, ArchiCAD or any IFC viewer to coordinate with other disciplines.</p>
+
+<h2>14.4 BOQ / schedules (📑 BOQ)</h2>
+<p>The <b>📑 BOQ</b> button downloads <b>SitePlanner3D_Schedules.csv</b> with five schedules, ready for Excel:</p>
+<ul>
+  <li><b>Wall schedule</b> — per floor: IFC class, material, fire rating, length, height, thickness, gross/net area, volume, with totals.</li>
+  <li><b>Door &amp; window schedule</b> — sizes, sill heights, materials, fire ratings.</li>
+  <li><b>Kitchen equipment schedule</b> — sizes, MEP connections, quantity per floor.</li>
+  <li><b>Duct schedule</b> — system, segment sizes, elevation, length.</li>
+  <li><b>Electrical &amp; services schedule</b> — drains, switches, MCB panels, starters, mount heights.</li>
+</ul>
+
+<h1 id="sec15">15. Kitchen Layout Templates</h1>
+<p>The <b>🧩 Templates</b> button opens a gallery of the five standard commercial-kitchen layouts. Pick one, set your room size, and the planner generates the complete starter design — enclosure walls, a door, and the full equipment set with BIM/MEP data already attached.</p>
+<table>
+  <caption data-label="Table 8">The five layout templates</caption>
+  <thead><tr><th>Template</th><th>Arrangement</th><th>Best for</th></tr></thead>
+  <tbody>
+    <tr><td class="key-col">Assembly Line</td><td>Central prep → hot-holding → pickup row; cooking on the back wall</td><td>Fast-food chains, pizzerias, build-your-own counters</td></tr>
+    <tr><td class="key-col">Zone-Style</td><td>Separate cooking, washing, prep and storage zones around the perimeter</td><td>Hotel restaurants, catering kitchens with diverse menus</td></tr>
+    <tr><td class="key-col">Island-Style</td><td>Cooking island under a hood in the centre; prep and washing on the perimeter</td><td>Restaurants with ample kitchen space</td></tr>
+    <tr><td class="key-col">Galley</td><td>Two parallel counters — cooking line vs washing/prep line</td><td>Compact spaces, food trucks, cloud kitchens</td></tr>
+    <tr><td class="key-col">Open Kitchen</td><td>Back-wall cooking, bain-marie serving counter, 1.1 m glass-partition low wall</td><td>High-end restaurants — guests watch the cooks</td></tr>
+  </tbody>
+</table>
+<figure id="fig-templates">
+  <img src="manual_img/templates.png" alt="Kitchen layout template gallery">
+  <figcaption data-label="Figure 12">The template gallery — each card takes an editable room L × W × H before generating</figcaption>
+</figure>
+<p><b>Everything a template creates is a normal, editable object</b> — stretch walls with the blue grips, double-click a wall to change its height, move, rotate or delete any equipment item, and adjust room size by dragging walls. Generating over an existing plan asks for confirmation and is one <b>↶ Undo</b> step away. If none of the five fits, the dialog's bottom button closes it and you build custom with <b>Draw Walls</b> + <b>Add Items</b>.</p>
+
+<h1 id="sec16">16. BIM Data Points — One-Click Engineering Report</h1>
+<p>After designing — from a template or by hand — click <b>⚡ BIM Data</b>. The planner computes the critical kitchen engineering data from the equipment you placed and presents it in six sections, each with a green ✓ / red ✗ verdict. <b>⬇ Download CSV</b> exports the same data for Excel.</p>
+<figure id="fig-bimdata">
+  <img src="manual_img/bimdata.png" alt="BIM Data Points report">
+  <figcaption data-label="Figure 13">The one-click BIM Data report — loads, pipe sizes, grease trap, ventilation, footprints and access checks</figcaption>
+</figure>
+<table>
+  <caption data-label="Table 9">What the report checks</caption>
+  <thead><tr><th>Section</th><th>Output</th></tr></thead>
+  <tbody>
+    <tr><td class="key-col">1 · Electrical loads</td><td>kW and amps (3-phase 400 V) per equipment; connected total to size the MCB feed</td></tr>
+    <tr><td class="key-col">2 · Pipe sizes</td><td>Cold/hot water, gas and drain sizes per fixture</td></tr>
+    <tr><td class="key-col">3 · Grease trap</td><td>Drainage fixture count → required interceptor capacity vs installed; warns when a grease trap is missing (place one from the Services library)</td></tr>
+    <tr><td class="key-col">4 · HVAC ventilation</td><td>Exhaust CMH per hood, fresh-air supply, 85% make-up-air rule, balance verdict, and exhaust-duct velocity check (6–12 m/s)</td></tr>
+    <tr><td class="key-col">5 · Footprints &amp; clearances</td><td>Exact L×W×H per equipment with manufacturer front/side clearance specs</td></tr>
+    <tr><td class="key-col">6 · Maintenance access</td><td>Every item's front access zone checked against walls and neighbours — blocked paths listed; <b>👁 Show clearance zones</b> draws the zones in the plan (overhead items like hoods are correctly ignored)</td></tr>
+  </tbody>
+</table>
+<figure id="fig-zones">
+  <img src="manual_img/zones.png" alt="Clearance zones drawn in the floor plan">
+  <figcaption data-label="Figure 14">Clearance / maintenance-access zones drawn in the plan — orange dashed areas must stay unobstructed</figcaption>
+</figure>
+
+<h1 id="sec17">17. 3D Model Editing — SolidWorks-Style Direct Edit &amp; V.Duct in 3D</h1>
+<p>Version 46 turns the 3D view from a viewer into an editor. Click <b>🧊 3D Edit</b> in the toolbar: hovering any object in the 3D view highlights it <b>yellow</b>; clicking selects it <b>orange</b> and opens a floating edit panel with that object's live dimensions. Change a value, press <b>Enter</b> or <b>✔ Apply</b> — the model and the 2D plan update together, and every edit is one <b>↶ Undo</b> step. In this mode left-click selects/drags (like SolidWorks); orbiting stays on the <b>middle mouse</b>.</p>
+<figure id="fig-edit3d">
+  <img src="manual_img/edit3d.png" alt="3D Edit mode with the dimension panel">
+  <figcaption data-label="Figure 15">3D Edit mode — the selected work table shows its editable dimensions in the panel; blue dimension labels in the view are clickable too</figcaption>
+</figure>
+<table>
+  <caption data-label="Table 10">3D Edit operations</caption>
+  <thead><tr><th>Action</th><th>Result</th></tr></thead>
+  <tbody>
+    <tr><td class="key-col">Click an object</td><td>Selects it (orange box) and opens the edit panel — equipment (L / W / H / mount / rotation), walls (length / height / thickness), pillars, beams, ducts (elevation &amp; sizes), rises, vertical ducts (width / depth / bottom / top), wall hoods and service points</td></tr>
+    <tr><td class="key-col">Click a blue dimension label</td><td>Selects the owning object and focuses the field that dimension displays — e.g. clicking a wall's length label lets you retype the wall length</td></tr>
+    <tr><td class="key-col">Left-drag an object</td><td>Moves it across the floor in 3D (equipment, pillars, vertical ducts, risers, slabs, floor drains) — the 2D plan follows live</td></tr>
+    <tr><td class="key-col">Fresh / Exhaust dropdown</td><td>Shown for ducts, risers and vertical ducts — switches the MEP system colour</td></tr>
+    <tr><td class="key-col">🗑 in panel or Delete key</td><td>Deletes the selected object (undoable)</td></tr>
+    <tr><td class="key-col">Esc</td><td>Closes the panel and clears the selection</td></tr>
+  </tbody>
+</table>
+<p><b>Drawing a V.Duct in 3D:</b> with the <b>⬍ V.Duct</b> tool active you can now click <b>directly in the 3D view</b> — on any surface or open floor — and the vertical duct shaft drops through all floors at that exact spot, using the width, depth, bottom and top heights set in the top bar (Top = 0 runs it to the terrace). The same shaft can afterwards be resized or moved entirely in 3D with 🧊 3D Edit.</p>
+
+<h1 id="sec18">18. SolidWorks CommandManager — Features, Evaluate &amp; View</h1>
+<p>Version 47 docks a <b>CommandManager</b> at the top of the 3D view, organised in the three SolidWorks-style tabs <b>Features</b>, <b>Evaluate</b> and <b>View</b>. Everything it creates or opens uses the standard SolidWorks names: <b>Extruded Boss/Base</b>, <b>Edit Feature</b>, <b>Move/Copy Bodies</b>, <b>Measure</b>, <b>Mass Properties</b>, <b>Interference Detection</b>, <b>Zoom to Fit</b>, standard <b>Front / Top / Right / Trimetric</b> orientations, <b>Wireframe</b> and the <b>FeatureManager Design Tree</b>; the edit panel itself is the <b>PropertyManager</b>.</p>
+<figure id="fig-swcmd">
+  <img src="manual_img/swcmd.png" alt="SolidWorks CommandManager, FeatureManager and PropertyManager">
+  <figcaption data-label="Figure 16">CommandManager (Features tab), FeatureManager tree listing every body, and the PropertyManager editing an Extruded Boss/Base</figcaption>
+</figure>
+<table>
+  <caption data-label="Table 11">CommandManager tabs</caption>
+  <thead><tr><th>Tab</th><th>Command</th><th>What it does</th></tr></thead>
+  <tbody>
+    <tr><td class="key-col" rowspan="3">Features</td><td>▭ Extruded Boss/Base</td><td>Click two opposite corners of the sketch profile in the 3D view, type the <b>depth</b> — a solid body is created. It is a normal body: resize it in the PropertyManager, drag it with Move/Copy Bodies, export it to IFC/STEP</td></tr>
+    <tr><td>✎ Edit Feature</td><td>Switches to 3D Edit — click any body (or a blue dimension label) to change its dimensions</td></tr>
+    <tr><td>✥ Move/Copy Bodies</td><td>Left-drag a body in the 3D view to move it on the floor</td></tr>
+    <tr><td class="key-col" rowspan="3">Evaluate</td><td>📏 Measure</td><td>The SolidWorks-style face / edge / point measure tool</td></tr>
+    <tr><td>∑ Mass Properties</td><td>Solid-body count, total <b>volume (m³)</b>, <b>surface area (m²)</b>, model bounding box, and a steel-equivalent mass</td></tr>
+    <tr><td>⚠ Interference Detection</td><td>Runs the clash check between bodies</td></tr>
+    <tr><td class="key-col" rowspan="7">View</td><td>⛶ Zoom to Fit</td><td>Frames the whole model (same as double-middle-click)</td></tr>
+    <tr><td>⬒ Front / ⬓ Top / ⬔ Right</td><td>Snaps the camera to the standard orthographic orientation, keeping the current zoom</td></tr>
+    <tr><td>◈ Trimetric</td><td>Restores the default isometric-style view</td></tr>
+    <tr><td>◇ Wireframe</td><td>Toggles wireframe display of the model</td></tr>
+    <tr><td>🌲 FeatureManager</td><td>Opens the design tree — every floor with its walls, doors, windows, equipment, beams, pillars, ducts, rises, hoods, services, slabs and vertical ducts. <b>Click any entry</b> to select that body in the model and open its PropertyManager</td></tr>
+  </tbody>
+</table>
+<p>The FeatureManager stays live: it refreshes automatically as you add, edit or delete bodies, on every floor. Combined with the PropertyManager (Section 17) this gives the full SolidWorks loop — create features, see them in the tree, click to edit their driving dimensions.</p>
+
+</body>
+</html>
